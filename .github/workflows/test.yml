@@ -3,7 +3,7 @@ name: Create K8s ConfigMaps
 on:
   push:
     paths:
-      - 'characters/*.json'
+      - 'test/*.json'
 
 jobs:
   create-configmap:
