@@ -29,6 +29,6 @@ jobs:
           for file in test/*.json; do
             if [ -f "$file" ]; then
               filename=$(basename "$file")
-              kubectl create configmap ${filename} --from-file=${file} -n namespace-test --dry-run=client -o yaml | kubectl apply -f -
+              kubectl create configmap ${filename} --from-file=${file} -n test --dry-run=client -o yaml | kubectl apply -f -
             fi
           done
