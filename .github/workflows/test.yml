@@ -3,7 +3,10 @@ name: Create K8s ConfigMaps
 on:
   push:
     paths:
-      - 'characters/*.json'
+      - 'test/*.json'
+  pull_request:
+    paths:
+      - 'test/*.json'
 
 jobs:
   create-configmap:
@@ -26,9 +29,6 @@ jobs:
           for file in test/*.json; do
             if [ -f "$file" ]; then
               filename=$(basename "$file")
-              kubectl -n test create configmap "${filename}" \
-                --from-file=config.json="./${file}" \
-                -o yaml --dry-run=client | kubectl apply -f -
-              echo "Created/updated ConfigMap for ${filename}"
+              kubectl create configmap ${filename} --from-file=${file} -n namespace-test --dry-run=client -o yaml | kubectl apply -f -
             fi
           done
